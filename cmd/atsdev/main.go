@@ -14,17 +14,11 @@ func main() {
 	}
 
 	resumeFile := os.Args[1]
-	jobDescriptionFile := os.Args[2]
+	jobDescriptionText := os.Args[2]
 
 	resumeText, err := parser.ParsePDF(resumeFile)
 	if err != nil {
 		fmt.Printf("Error reading resume: %v\n", err)
-		return
-	}
-
-	jobDescriptionText, err := parser.ParsePDF(jobDescriptionFile)
-	if err != nil {
-		fmt.Printf("Error reading job description: %v\n", err)
 		return
 	}
 
