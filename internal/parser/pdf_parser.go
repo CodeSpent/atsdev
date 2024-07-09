@@ -2,16 +2,14 @@ package parser
 
 import (
 	"fmt"
+	"github.com/otiai10/gosseract/v2"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"strconv"
 	"strings"
-
-	"github.com/otiai10/gosseract/v2"
 )
 
-// ParsePDF extracts text from a PDF file using Tesseract OCR.
 func ParsePDF(filePath string) (string, error) {
 	// Check if pdfinfo is installed
 	if _, err := exec.LookPath("pdfinfo"); err != nil {

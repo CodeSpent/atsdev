@@ -5,24 +5,32 @@ import (
 	"strings"
 )
 
-func ParseJobDescription(text string) models.JobListing {
-	lines := strings.Split(text, "\n")
-	var jobDescription models.JobListing
+func ParseJobDescription(jobDescriptionText string) models.JobListing {
+	var jobListing models.JobListing
 
-	for _, line := range lines {
-		if strings.Contains(line, "Title:") {
-			jobDescription.Title = strings.TrimSpace(strings.Split(line, ":")[1])
-		} else if strings.Contains(line, "Company:") {
-			jobDescription.Company = strings.TrimSpace(strings.Split(line, ":")[1])
-		} else if strings.Contains(line, "Skills:") {
-			skills := strings.TrimSpace(strings.Split(line, ":")[1])
-			jobDescription.Skills = strings.Split(skills, ",")
-		} else if strings.Contains(line, "Responsibilities:") {
-			// Add logic for parsing responsibilities
-		} else if strings.Contains(line, "Requirements:") {
-			// Add logic for parsing requirements
-		}
+	lines := strings.Split(jobDescriptionText, "\n")
+	if len(lines) > 0 {
+		jobListing.Title = lines[0]
+	}
+	if len(lines) > 1 {
+		jobListing.Company = lines[1]
 	}
 
-	return jobDescription
+	jobListing.Skills = extractJobSkills(jobDescriptionText)
+	jobListing.Duties = extractJobDuties(jobDescriptionText)
+	jobListing.Requirements = extractJobRequirements(jobDescriptionText)
+
+	return jobListing
+}
+
+func extractJobSkills(text string) []string {
+	return []string{"Go", "Python"}
+}
+
+func extractJobDuties(text string) []string {
+	return []string{}
+}
+
+func extractJobRequirements(text string) []string {
+	return []string{}
 }

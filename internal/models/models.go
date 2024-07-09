@@ -24,6 +24,7 @@ type Resume struct {
 	Skills     []string
 	Experience []Experience
 	Education  []Education
+	Content    string
 }
 
 // Listing Structs

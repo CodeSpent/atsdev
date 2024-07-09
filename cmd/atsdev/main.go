@@ -23,8 +23,9 @@ func main() {
 	}
 
 	resume := parser.ParseResume(resumeText)
-	jobDescription := parser.ParseJobDescription(jobDescriptionText)
-	score := matcher.Match(resume, jobDescription)
+	jobListing := parser.ParseJobDescription(jobDescriptionText)
+
+	score := matcher.Match(resume, jobListing)
 
 	fmt.Printf("Match Score: %.2f\n", score)
 }

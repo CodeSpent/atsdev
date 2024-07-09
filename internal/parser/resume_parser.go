@@ -2,29 +2,46 @@ package parser
 
 import (
 	"atsdev/internal/models"
-	"strings"
+	"regexp"
 )
 
-func ParseResume(text string) models.Resume {
-	lines := strings.Split(text, "\n")
+func ParseResume(resumeText string) models.Resume {
 	var resume models.Resume
 
-	for _, line := range lines {
-		if strings.Contains(line, "Name:") {
-			resume.Name = strings.TrimSpace(strings.Split(line, ":")[1])
-		} else if strings.Contains(line, "Email:") {
-			resume.Email = strings.TrimSpace(strings.Split(line, ":")[1])
-		} else if strings.Contains(line, "Phone:") {
-			resume.Phone = strings.TrimSpace(strings.Split(line, ":")[1])
-		} else if strings.Contains(line, "Skills:") {
-			skills := strings.TrimSpace(strings.Split(line, ":")[1])
-			resume.Skills = strings.Split(skills, ",")
-		} else if strings.Contains(line, "Experience:") {
-			// Add logic for parsing experience
-		} else if strings.Contains(line, "Education:") {
-			// Add logic for parsing education
-		}
-	}
+	resume.Name = extractName(resumeText)
+	resume.Email = extractEmail(resumeText)
+	resume.Phone = extractPhone(resumeText)
+	resume.Skills = extractSkills(resumeText)
+	resume.Experience = extractExperience(resumeText)
+	resume.Education = extractEducation(resumeText)
+
+	resume.Content = resumeText
 
 	return resume
+}
+
+func extractName(text string) string {
+	return "Isaac Newton"
+}
+
+func extractEmail(text string) string {
+	re := regexp.MustCompile(`[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}`)
+	return re.FindString(text)
+}
+
+func extractPhone(text string) string {
+	re := regexp.MustCompile(`$begin:math:text$?\\d{3}$end:math:text$?[-.\s]?\d{3}[-.\s]?\d{4}`)
+	return re.FindString(text)
+}
+
+func extractSkills(text string) []string {
+	return []string{"Go", "Python"}
+}
+
+func extractExperience(text string) []models.Experience {
+	return []models.Experience{}
+}
+
+func extractEducation(text string) []models.Education {
+	return []models.Education{}
 }
