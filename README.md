@@ -22,7 +22,7 @@ ATSDev is a Go-based application designed to match a resume against a job descri
 1. **Clone the Repository**
 
    ```shell
-   git clone https://github.com/yourusername/atsdev.git
+   git clone https://github.com/codespent/atsdev.git
    cd atsdev
    ```
 2. Install Dependencies 
